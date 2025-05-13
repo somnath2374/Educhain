@@ -1,73 +1,62 @@
-# Welcome to your Lovable project
+# EduChain
 
-## Project info
+EduChain is a platform designed to empower students by helping them build financial literacy and a blockchain-verified financial reputation. It combines gamification, blockchain technology, and automated investment strategies to create an engaging and educational experience.
 
-**URL**: https://lovable.dev/projects/6727b919-d72f-4358-ac2e-a948d7c0e39f
+## Key Features
 
-## How can I edit this code?
+- **Auto-Invest Spare Change**: Automatically round up transactions and invest the spare change to help students start their financial journey.
+- **Blockchain-Verified Financial Reputation**: Build a secure and transparent financial reputation (EduScore) using blockchain technology.
+- **Gamified Learning**: Learn essential money management skills through interactive and gamified experiences.
 
-There are several ways of editing your application.
+## Technologies Used
 
-**Use Lovable**
+EduChain leverages modern technologies to deliver a seamless and secure experience:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6727b919-d72f-4358-ac2e-a948d7c0e39f) and start prompting.
+- **Frontend**: Built with React, TypeScript, and Tailwind CSS for a responsive and interactive user interface.
+- **Backend**: Powered by Supabase for database management and API integrations.
+- **Blockchain**: Utilizes blockchain technology to ensure transparency and security.
+- **CI/CD**: Automated workflows using GitHub Actions for continuous integration and deployment.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Continuous Integration Workflow
 
-**Use your preferred IDE**
+The project uses GitHub Actions to automate the build, test, and deployment processes. Below is an overview of the CI workflow:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. **Setup Node.js**: Installs Node.js version 18 and caches npm dependencies for faster builds.
+2. **Install Dependencies**: Runs `npm install` to install all required dependencies.
+3. **Build**: Executes `npm run build` with environment variables for Supabase configuration.
+4. **Run Tests**: Runs tests using `npm run test:ci`. If tests encounter issues, the workflow logs the errors but continues execution.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### CI Workflow Configuration
 
-Follow these steps:
+The CI workflow is defined in `.github/workflows/ci.yml`:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## How to Get Started
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1. Clone the repository:
 
-# Step 3: Install the necessary dependencies.
-npm i
+   ```sh
+   git clone <YOUR_GIT_URL>
+   cd <YOUR_PROJECT_NAME>
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+2. Install dependencies:
 
-**Edit a file directly in GitHub**
+   ```sh
+   npm install
+   ```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+3. Start the development server:
 
-**Use GitHub Codespaces**
+   ```sh
+   npm run dev
+   ```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+4. Run tests:
 
-## What technologies are used for this project?
+   ```sh
+   npm run test
+   ```
 
-This project is built with:
+## License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/6727b919-d72f-4358-ac2e-a948d7c0e39f) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
