@@ -1,0 +1,28 @@
+
+project_id = "YOUR_PROJECT_ID"
+
+[api]
+enabled = true
+port = 54321
+schemas = []
+
+[db]
+port = 54322
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+enabled = true
+port = 54324
+
+[auth]
+enabled = true
+port = 9999
+
+[functions.phonepe-payment]
+verify_jwt = true
+
+[functions.phonepe-callback]
+verify_jwt = false
