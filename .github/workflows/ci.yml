@@ -23,6 +23,9 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Run npm audit (security check)
+      run: npm audit --audit-level=high || true
+
     - name: Build
       run: npm run build
       env:
@@ -35,3 +38,31 @@ jobs:
         npm run test:ci || echo "Tests completed with issues"
       env:
         CI: true
+
+  codeql-analysis:
+    name: CodeQL Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Build code
+      run: npm install && npm run build
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
