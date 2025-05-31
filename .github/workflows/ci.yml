@@ -106,4 +106,3 @@ jobs:
     - name: Deploy to Kubernetes
       run: |
         kubectl apply -f k8s/
-        kubectl rollout status deployment/educhain-deployment
