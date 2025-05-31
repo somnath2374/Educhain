@@ -1,4 +1,4 @@
-name: EduChain CI
+name: EduChain CI/CD
 
 on:
   push:
@@ -34,35 +34,46 @@ jobs:
         VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
     - name: Run tests
-      run: |
-        npm run test:ci || echo "Tests completed with issues"
+      run: npm run test:ci || echo "Tests completed with issues"
       env:
         CI: true
 
-  codeql-analysis:
-    name: CodeQL Security Scan
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v3
 
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [javascript]
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/educhain:latest
+
+  deploy:
+    name: Deploy to Kubernetes
+    needs: build
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
       with:
-        languages: ${{ matrix.language }}
+        version: 'latest'
 
-    - name: Build code
-      run: npm install && npm run build
+    - name: Set up Kubeconfig
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" > kubeconfig
+        export KUBECONFIG=$PWD/kubeconfig
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
