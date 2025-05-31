@@ -100,9 +100,6 @@ jobs:
         echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
         chmod 600 $HOME/.kube/config
 
-    - name: Test connection
-      run: kubectl get nodes
-
     - name: Deploy to Kubernetes
       run: |
         kubectl apply -f k8s/
