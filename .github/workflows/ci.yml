@@ -98,10 +98,10 @@ jobs:
       run: |
         mkdir -p $HOME/.kube
         echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+        chmod 600 $HOME/.kube/config
 
-    - name: Configure kubeconfig
-      run: |
-        echo "${{ secrets.KUBECONFIG_DATA }}" | base64 -d > $HOME/.kube/config
+    - name: Test connection
+      run: kubectl get nodes
 
     - name: Deploy to Kubernetes
       run: |
